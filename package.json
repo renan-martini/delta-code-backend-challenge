@@ -1,0 +1,34 @@
+{
+  "name": "simple-graphql-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "compile": "tsc",
+    "start": "tsnd --cls --watch src/graphql/modules/**/*.gql --respawn --transpile-only src/server.ts"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.7.1",
+    "@graphql-tools/load-files": "^6.6.1",
+    "apollo-server": "^3.12.0",
+    "bcryptjs": "^2.4.3",
+    "class-transformer": "^0.5.1",
+    "dotenv": "^16.0.3",
+    "graphql": "^16.6.0",
+    "graphql-tools": "^8.3.20",
+    "jsonwebtoken": "^9.0.0",
+    "pg": "^8.10.0",
+    "typeorm": "^0.3.16",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/node": "^20.1.1",
+    "@types/uuid": "^9.0.1",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "type-graphql": "1.1.1",
+    "typescript": "^5.0.4"
+  }
+}
