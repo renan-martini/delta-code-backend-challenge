@@ -16,6 +16,9 @@ export const listTransactions = async (
   if (!isValidDate(startDate) || (endDate && !isValidDate(endDate))) {
     throw new DateFormatError("Invalid date format (yyyy-mm-dd)");
   }
+  if (new Date(startDate).getTime() > new Date(endDate).getTime()) {
+    throw new DateFormatError("End date must be after start date");
+  }
   if (!endDate) {
     endDate = startDate.split("-");
     endDate[2] = parseInt(endDate[2]) + 1;
