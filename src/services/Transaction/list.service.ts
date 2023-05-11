@@ -70,10 +70,20 @@ export const listTransactions = async (
         date: transaction.createdAt.toISOString().split("T")[0],
         hasReceived,
         hasSent,
-        transactions: [dateFormatter("createdAt", transaction)],
+        transactions: [
+          dateFormatter("createdAt", {
+            ...transaction,
+            type: hasReceived ? "IN" : "OUT",
+          }),
+        ],
       });
     } else {
-      days[dayIndex].transactions.push(dateFormatter("createdAt", transaction));
+      days[dayIndex].transactions.push(
+        dateFormatter("createdAt", {
+          ...transaction,
+          type: hasReceived ? "IN" : "OUT",
+        })
+      );
       if (hasReceived) {
         days[dayIndex].hasReceived = true;
       }

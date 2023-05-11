@@ -6,6 +6,15 @@ type User {
   pictureUrl: String
   createdAt: String
 }
+type Profile {
+  id: ID
+  firstName: String
+  lastName: String
+  email: String
+  pictureUrl: String
+  createdAt: String
+  balance: Float
+}
 
 input LoginInput {
   email: String!
@@ -33,7 +42,7 @@ input UpdateUserInput {
 
 type Query {
   listUsers: [User]
-  retrieveUser: User
+  retrieveUser: Profile
 }
 
 type Mutation {
