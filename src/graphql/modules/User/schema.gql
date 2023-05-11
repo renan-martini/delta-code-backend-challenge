@@ -33,7 +33,7 @@ input UpdateUserInput {
 
 type Query {
   listUsers: [User]
-  retrieveUser(id: ID!): User
+  retrieveUser: User
 }
 
 type Mutation {
