@@ -1,6 +1,12 @@
+enum TransactionType {
+  IN
+  OUT
+}
+
 type Transaction {
   id: ID
   value: Float
+  type: TransactionType
   createdAt: String
   debitedAccount: User
   receiverAccount: User

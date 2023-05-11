@@ -23,7 +23,7 @@ export class User {
     type: "decimal",
     precision: 15,
     scale: 2,
-    default: 100.0,
+    default: 1000.0,
     transformer: new DecimalTransformer(),
   })
   balance: number;
