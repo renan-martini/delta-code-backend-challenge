@@ -5,6 +5,7 @@ import { MyContext } from "../../interfaces/context.interfaces";
 import { hash } from "bcryptjs";
 import { IUserCreate } from "../../interfaces/user.interfaces";
 import { dateFormatter } from "../../utils/dateFormatter.utils";
+import { validateEmail } from "../../utils/validateEmail.utils";
 
 export const createUser = async (
   _: any,
@@ -14,6 +15,7 @@ export const createUser = async (
     data: IUserCreate;
   }
 ) => {
+  validateEmail(data.email);
   const userRepository = AppDataSource.getRepository(User);
   const repeatedUser = await userRepository.findOneBy({
     email: data.email,

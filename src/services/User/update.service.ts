@@ -8,6 +8,7 @@ import { MyContext } from "../../interfaces/context.interfaces";
 import { IUserCreate } from "../../interfaces/user.interfaces";
 import { validateUUID } from "../../utils/uuid.utils";
 import { dateFormatter } from "../../utils/dateFormatter.utils";
+import { validateEmail } from "../../utils/validateEmail.utils";
 
 export const updateUser = async (
   _: any,
@@ -15,6 +16,9 @@ export const updateUser = async (
   { validate }: MyContext
 ) => {
   validateUUID(id);
+  if (data.email) {
+    validateEmail(data.email);
+  }
   const userId = validate();
   if (id != userId)
     throw new NoPermissionError("You cannot update another account");
