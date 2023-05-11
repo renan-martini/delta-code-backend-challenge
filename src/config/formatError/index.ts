@@ -3,7 +3,7 @@ import { AppError } from "../../errors";
 
 export const formatError = (error: GraphQLError) => {
   if (error.originalError instanceof AppError) {
-    return new Error(error.message);
+    return { message: error.message, type: error.originalError.name };
   }
   return error;
 };

@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "compile": "tsc",
-    "start": "tsnd --cls --watch src/graphql/modules/**/*.gql --respawn --transpile-only src/server.ts"
+    "start": "tsnd --cls  --respawn --transpile-only src/server.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.7.1",

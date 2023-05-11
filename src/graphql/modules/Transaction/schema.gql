@@ -1,0 +1,27 @@
+type Transaction {
+  id: ID
+  value: Float
+  createdAt: String
+  debitedAccount: User
+  receiverAccount: User
+}
+
+input CreateTransactionInput {
+  value: Float!
+  debitedAccountEmail: String!
+}
+
+type Day {
+  date: String
+  hasSent: Boolean
+  hasReceived: Boolean
+  transactions: [Transaction]
+}
+
+type Query {
+  listTransactions(startDate: String!, endDate: String): [Day]
+}
+
+type Mutation {
+  createTransaction(data: CreateTransactionInput!): Transaction
+}

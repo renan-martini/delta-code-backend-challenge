@@ -1,6 +1,7 @@
 import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
 import { NotFoundError } from "../../errors/NotFoundError";
+import { dateFormatter } from "../../utils/dateFormatter.utils";
 import { validateUUID } from "../../utils/uuid.utils";
 
 export const retrieveUser = async (_: any, { id }: { id: string }) => {
@@ -8,7 +9,5 @@ export const retrieveUser = async (_: any, { id }: { id: string }) => {
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOneBy({ id, isActive: true });
   if (!user) throw new NotFoundError("User not found");
-  return user;
+  return dateFormatter("createdAt", user);
 };
-
-export const teste = 1;

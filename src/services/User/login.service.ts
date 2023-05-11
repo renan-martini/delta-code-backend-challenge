@@ -4,6 +4,7 @@ import { InvalidUserError } from "../../errors/InvalidUserError";
 import { compare } from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import { createToken } from "../../utils/token.utils";
+import { ILogin } from "../../interfaces/user.interfaces";
 
 export const login = async (
   _: any,
@@ -20,6 +21,8 @@ export const login = async (
   if (!user) {
     throw new InvalidUserError("Invalid email or password");
   }
+
+  if (!user.isActive) throw new InvalidUserError("User deleted");
 
   const matchPassword = await compare(data.password, user.password);
 

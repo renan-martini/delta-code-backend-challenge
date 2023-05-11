@@ -1,6 +1,3 @@
-import { GraphQLError } from "graphql";
-import AppDataSource from "../../../data-source";
-import { User } from "../../../entities/user.entity";
 import { createUser } from "../../../services/User/create.service";
 import { updateUser } from "../../../services/User/update.service";
 import { deleteUser } from "../../../services/User/delete.service";
