@@ -3,6 +3,8 @@ import AppDataSource from "../../data-source";
 import { EmailError } from "../../errors/EmailError";
 import { MyContext } from "../../interfaces/context.interfaces";
 import { hash } from "bcryptjs";
+import { IUserCreate } from "../../interfaces/user.interfaces";
+import { dateFormatter } from "../../utils/dateFormatter.utils";
 
 export const createUser = async (
   _: any,
@@ -26,5 +28,5 @@ export const createUser = async (
   });
   await userRepository.save(user);
 
-  return user;
+  return dateFormatter("createdAt", user);
 };

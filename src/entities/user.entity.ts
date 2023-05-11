@@ -2,8 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { DecimalTransformer } from "../utils/decimalTransformer.utils";
+import { Transaction } from "./transaction.entity";
 
 @Entity("user")
 export class User {
@@ -15,6 +18,15 @@ export class User {
 
   @Column()
   password: string;
+
+  @Column({
+    type: "decimal",
+    precision: 15,
+    scale: 2,
+    default: 100.0,
+    transformer: new DecimalTransformer(),
+  })
+  balance: number;
 
   @Column()
   firstName: string;
@@ -30,4 +42,10 @@ export class User {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.debitedAccount)
+  cashOuts: Transaction[];
+
+  @OneToMany(() => Transaction, (transaction) => transaction.receiverAccount)
+  cashIns: Transaction[];
 }

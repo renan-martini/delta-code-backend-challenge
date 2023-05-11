@@ -1,11 +1,11 @@
-interface IUserCreate {
+export interface IUserCreate {
   name: string;
   email: string;
   password: string;
   picture_url: string;
 }
 
-interface ILogin {
+export interface ILogin {
   email: string;
   password: string;
 }
