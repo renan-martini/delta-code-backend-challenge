@@ -1,7 +1,5 @@
-import { User } from "../../entities/user.entity";
-import AppDataSource from "../../data-source";
+import prisma from "../../data-source";
 import { EmailError } from "../../errors/EmailError";
-import { MyContext } from "../../interfaces/context.interfaces";
 import { hash } from "bcryptjs";
 import { IUserCreate } from "../../interfaces/user.interfaces";
 import { dateFormatter } from "../../utils/dateFormatter.utils";
@@ -16,19 +14,20 @@ export const createUser = async (
   }
 ) => {
   validateEmail(data.email);
-  const userRepository = AppDataSource.getRepository(User);
-  const repeatedUser = await userRepository.findOneBy({
-    email: data.email,
+  const repeatedUser = await prisma.user.findUnique({
+    where: {
+      email: data.email,
+    },
   });
   if (repeatedUser) {
     throw new EmailError("User already signed");
   }
   const hashedPassword = await hash(data.password, 10);
-  const user = userRepository.create({
-    ...data,
-    password: hashedPassword,
-  });
-  await userRepository.save(user);
+  const user = await prisma.user
+    .create({ data: { ...data, password: hashedPassword } })
+    .catch((e) => {
+      throw new Error(e);
+    });
 
   return dateFormatter("createdAt", user);
 };
