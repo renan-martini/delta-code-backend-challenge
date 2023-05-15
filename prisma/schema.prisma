@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model transaction {
+  id                                       String   @id(map: "PK_89eadb93a89810556e1cbcd6ab9") @default(uuid()) @db.Uuid
+  createdAt                                DateTime @default(now()) @db.Timestamp(6)
+  value                                    Decimal  @db.Decimal(15, 2)
+  debitedAccountId                         String?  @db.Uuid
+  receiverAccountId                        String?  @db.Uuid
+  debitedAccount  user?    @relation("debitedAccount", fields: [debitedAccountId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_cacfcdb0d3076a1ad26ee59bbe6")
+  receiverAccount user?    @relation("receiverAccount", fields: [receiverAccountId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ccb13651bc84ebbf68cd3e48699")
+}
+
+model user {
+  id                                              String        @id(map: "PK_cace4a159ff9f2512dd42373760") @default(uuid()) @db.Uuid
+  email                                           String        @unique(map: "UQ_e12875dfb3b1d92d7d7c5377e22") @db.VarChar
+  password                                        String        @db.VarChar
+  firstName                                       String        @db.VarChar
+  lastName                                        String        @db.VarChar
+  pictureUrl                                      String        @db.VarChar
+  createdAt                                       DateTime      @default(now()) @db.Timestamp(6)
+  isActive                                        Boolean       @default(true)
+  balance                                         Decimal       @default(1000) @db.Decimal(15, 2)
+  debitedAccount transaction[] @relation("debitedAccount")
+  receiverAccount transaction[] @relation("receiverAccount")
+}

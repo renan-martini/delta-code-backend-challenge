@@ -1,26 +1,6 @@
-import { DataSource } from "typeorm";
+import { PrismaClient } from "@prisma/client";
 import "dotenv/config";
 
-const AppDataSource = new DataSource(
-  process.env.NODE_ENV === "test"
-    ? {
-        type: "sqlite",
-        database: ":memory:",
-        synchronize: true,
-        entities: ["src/entities/**/*.ts"],
-      }
-    : {
-        type: "postgres",
-        host: process.env.DB_HOST,
-        port: parseInt(process.env.DB_PORT!),
-        username: process.env.POSTGRES_USER,
-        password: process.env.POSTGRES_PASSWORD,
-        database: process.env.POSTGRES_DB,
-        logging: true,
-        synchronize: true,
-        entities: ["src/entities/*.ts"],
-        migrations: ["src/migrations/*.ts"],
-      }
-);
+const prisma = new PrismaClient();
 
-export default AppDataSource;
+export default prisma;

@@ -1,8 +1,7 @@
 import { ApolloServer } from "apollo-server";
 import { typeDefs, resolvers } from "./graphql";
-import AppDataSource from "./data-source";
+import prisma from "./data-source";
 import config from "./config";
-import { MyContext } from "./interfaces/context.interfaces";
 
 const server = new ApolloServer({
   typeDefs,
@@ -11,10 +10,9 @@ const server = new ApolloServer({
 });
 
 (async () => {
-  await AppDataSource.initialize().catch((err) => {
-    console.error("Error during Data Source initialization", err);
-  });
   await server
     .listen()
     .then(({ url }) => console.log(`Server running on: ${url}`));
-})();
+})().then(async () => {
+  await prisma.$disconnect();
+});

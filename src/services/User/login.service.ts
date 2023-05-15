@@ -1,10 +1,8 @@
-import { User } from "../../entities/user.entity";
-import AppDataSource from "../../data-source";
 import { InvalidUserError } from "../../errors/InvalidUserError";
 import { compare } from "bcryptjs";
-import * as jwt from "jsonwebtoken";
 import { createToken } from "../../utils/token.utils";
 import { ILogin } from "../../interfaces/user.interfaces";
+import prisma from "../../data-source";
 
 export const login = async (
   _: any,
@@ -14,9 +12,8 @@ export const login = async (
     data: ILogin;
   }
 ) => {
-  const userRepository = AppDataSource.getRepository(User);
-  const user = await userRepository.findOneBy({
-    email: data.email,
+  const user = await prisma.user.findUnique({
+    where: { email: data.email },
   });
   if (!user) {
     throw new InvalidUserError("Invalid email or password");

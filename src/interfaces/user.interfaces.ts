@@ -1,8 +1,9 @@
 export interface IUserCreate {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
-  picture_url: string;
+  pictureUrl: string;
 }
 
 export interface ILogin {

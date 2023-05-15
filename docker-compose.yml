@@ -14,7 +14,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: "yarn start"
+    command: "yarn start:docker"
     volumes:
       - ./:/api
 
