@@ -8,4 +8,6 @@ RUN yarn
 
 COPY . .
 
-CMD ["yarn", "start"]
+RUN yarn prisma generate
+
+CMD ["yarn", "start:docker"]
